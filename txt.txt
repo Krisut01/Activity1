@@ -1,0 +1,132 @@
+Microsoft Windows [Version 10.0.26100.6725]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Subjects 2024\4thYr\CSC-123\Activity1>python LAB_LEC3.py
+2025-10-20 21:06:00.360885: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+C:\Users\james\AppData\Local\Programs\Python\Python310\lib\site-packages\keras\src\layers\core\dense.py:92: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+2025-10-20 21:06:19.118060: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Model: "sequential"
+┌──────────────────────────────────────┬─────────────────────────────┬─────────────────┐
+│ Layer (type)                         │ Output Shape                │         Param # │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dense (Dense)                        │ (None, 512)                 │         401,920 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dropout (Dropout)                    │ (None, 512)                 │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dense_1 (Dense)                      │ (None, 256)                 │         131,328 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dropout_1 (Dropout)                  │ (None, 256)                 │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dense_2 (Dense)                      │ (None, 10)                  │           2,570 │
+└──────────────────────────────────────┴─────────────────────────────┴─────────────────┘
+ Total params: 535,818 (2.04 MB)
+ Trainable params: 535,818 (2.04 MB)
+ Non-trainable params: 0 (0.00 B)
+Epoch 1/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m2s←[0m 6ms/step - accuracy: 0.6005 - loss: 1.4822 - val_accuracy: 0.8317 - val_loss: 0.7775
+Epoch 2/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m2s←[0m 5ms/step - accuracy: 0.8138 - loss: 0.6809 - val_accuracy: 0.8776 - val_loss: 0.4927
+Epoch 3/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 5ms/step - accuracy: 0.8516 - loss: 0.5149 - val_accuracy: 0.8902 - val_loss: 0.4110
+Epoch 4/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 4ms/step - accuracy: 0.8702 - loss: 0.4463 - val_accuracy: 0.8986 - val_loss: 0.3705
+Epoch 5/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 4ms/step - accuracy: 0.8816 - loss: 0.4056 - val_accuracy: 0.9045 - val_loss: 0.3443
+Epoch 6/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 4ms/step - accuracy: 0.8898 - loss: 0.3757 - val_accuracy: 0.9074 - val_loss: 0.3233
+Epoch 7/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 4ms/step - accuracy: 0.8984 - loss: 0.3522 - val_accuracy: 0.9119 - val_loss: 0.3087
+Epoch 8/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 4ms/step - accuracy: 0.9042 - loss: 0.3327 - val_accuracy: 0.9171 - val_loss: 0.2963
+Epoch 9/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 5ms/step - accuracy: 0.9099 - loss: 0.3149 - val_accuracy: 0.9202 - val_loss: 0.2832
+Epoch 10/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 4ms/step - accuracy: 0.9130 - loss: 0.3002 - val_accuracy: 0.9224 - val_loss: 0.2734
+Epoch 11/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 4ms/step - accuracy: 0.9162 - loss: 0.2896 - val_accuracy: 0.9243 - val_loss: 0.2648
+Epoch 12/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 5ms/step - accuracy: 0.9175 - loss: 0.2803 - val_accuracy: 0.9257 - val_loss: 0.2559
+Epoch 13/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m2s←[0m 5ms/step - accuracy: 0.9225 - loss: 0.2663 - val_accuracy: 0.9271 - val_loss: 0.2473
+Epoch 14/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 5ms/step - accuracy: 0.9240 - loss: 0.2610 - val_accuracy: 0.9307 - val_loss: 0.2401
+Epoch 15/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 4ms/step - accuracy: 0.9261 - loss: 0.2529 - val_accuracy: 0.9319 - val_loss: 0.2331
+Epoch 16/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 5ms/step - accuracy: 0.9290 - loss: 0.2423 - val_accuracy: 0.9329 - val_loss: 0.2271
+Epoch 17/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 5ms/step - accuracy: 0.9321 - loss: 0.2338 - val_accuracy: 0.9352 - val_loss: 0.2212
+Epoch 18/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 5ms/step - accuracy: 0.9351 - loss: 0.2263 - val_accuracy: 0.9371 - val_loss: 0.2156
+Epoch 19/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 5ms/step - accuracy: 0.9357 - loss: 0.2214 - val_accuracy: 0.9388 - val_loss: 0.2102
+Epoch 20/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 4ms/step - accuracy: 0.9372 - loss: 0.2152 - val_accuracy: 0.9410 - val_loss: 0.2052
+Epoch 21/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 4ms/step - accuracy: 0.9396 - loss: 0.2087 - val_accuracy: 0.9419 - val_loss: 0.2012
+Epoch 22/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 5ms/step - accuracy: 0.9407 - loss: 0.2047 - val_accuracy: 0.9429 - val_loss: 0.1963
+Epoch 23/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 5ms/step - accuracy: 0.9421 - loss: 0.1994 - val_accuracy: 0.9429 - val_loss: 0.1922
+Epoch 24/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 5ms/step - accuracy: 0.9442 - loss: 0.1929 - val_accuracy: 0.9438 - val_loss: 0.1880
+Epoch 25/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m2s←[0m 5ms/step - accuracy: 0.9461 - loss: 0.1888 - val_accuracy: 0.9455 - val_loss: 0.1849
+Epoch 26/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 4ms/step - accuracy: 0.9465 - loss: 0.1849 - val_accuracy: 0.9460 - val_loss: 0.1816
+Epoch 27/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 4ms/step - accuracy: 0.9463 - loss: 0.1814 - val_accuracy: 0.9460 - val_loss: 0.1775
+Epoch 28/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 5ms/step - accuracy: 0.9494 - loss: 0.1772 - val_accuracy: 0.9464 - val_loss: 0.1742
+Epoch 29/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 5ms/step - accuracy: 0.9498 - loss: 0.1720 - val_accuracy: 0.9469 - val_loss: 0.1714
+Epoch 30/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 5ms/step - accuracy: 0.9500 - loss: 0.1704 - val_accuracy: 0.9476 - val_loss: 0.1678
+Epoch 31/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 5ms/step - accuracy: 0.9527 - loss: 0.1641 - val_accuracy: 0.9474 - val_loss: 0.1657
+Epoch 32/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 4ms/step - accuracy: 0.9533 - loss: 0.1625 - val_accuracy: 0.9481 - val_loss: 0.1623
+Epoch 33/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 4ms/step - accuracy: 0.9541 - loss: 0.1585 - val_accuracy: 0.9495 - val_loss: 0.1602
+Epoch 34/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 4ms/step - accuracy: 0.9556 - loss: 0.1553 - val_accuracy: 0.9500 - val_loss: 0.1575
+Epoch 35/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 4ms/step - accuracy: 0.9553 - loss: 0.1523 - val_accuracy: 0.9498 - val_loss: 0.1557
+Epoch 36/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 4ms/step - accuracy: 0.9559 - loss: 0.1512 - val_accuracy: 0.9517 - val_loss: 0.1525
+Epoch 37/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 5ms/step - accuracy: 0.9576 - loss: 0.1461 - val_accuracy: 0.9514 - val_loss: 0.1510
+Epoch 38/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m1s←[0m 4ms/step - accuracy: 0.9579 - loss: 0.1442 - val_accuracy: 0.9514 - val_loss: 0.1493
+Epoch 39/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m2s←[0m 5ms/step - accuracy: 0.9583 - loss: 0.1407 - val_accuracy: 0.9519 - val_loss: 0.1470
+Epoch 40/40
+←[1m296/296←[0m ←[32m━━━━━━━━━━━━━━━━━━━━←[0m←[37m←[0m ←[1m2s←[0m 5ms/step - accuracy: 0.9595 - loss: 0.1405 - val_accuracy: 0.9524 - val_loss: 0.1455
+Validation accuracy: 0.9524
+Saved: submission.csv
+WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`.
+Saved trained model: model.h5
+Saved preview: C:\Subjects 2024\4thYr\CSC-123\Activity1\test_predictions_preview.png
+Files detected in my_digits: ['0.png', '1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png']
+Saved: C:\Subjects 2024\4thYr\CSC-123\Activity1\test1.csv
+Shape of my_pixels: (10, 784)
+Saved: my_digits_predictions.csv
+  Source  PredictedLabel
+0  9.png               3
+1  8.png               3
+2  7.png               3
+3  6.png               3
+4  5.png               3
+5  4.png               3
+6  3.png               3
+7  2.png               2
+8  1.png               3
+9  0.png               2
+Reloading CSV from: C:\Subjects 2024\4thYr\CSC-123\Activity1\test1.csv
+Saved: C:\Subjects 2024\4thYr\CSC-123\Activity1\my_digits_predictions_from_csv.csv
+CSV prediction matches in-memory prediction for all rows.
+
+C:\Subjects 2024\4thYr\CSC-123\Activity1>
+

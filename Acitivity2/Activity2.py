@@ -1,6 +1,6 @@
-# ONE FILE: Kaggle Digit Recognizer (MNIST CSV) end-to-end
+# ONE FILE: Kaggle Digit Recognizer (MNIST CSV) end-to-end - CNN VERSION
 # - Loads train.csv & test.csv
-# - Trains a Keras MLP with Softmax
+# - Trains a Keras CNN with Softmax
 # - Shows sample digits & predictions
 # - Writes submission.csv for Kaggle
 # - Creates test1.csv from your handwritten digits
@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout
+from tensorflow.keras.layers import Dense, Dropout, Conv2D, MaxPooling2D, Flatten
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.callbacks import EarlyStopping
 from PIL import Image, ImageOps
@@ -31,18 +31,29 @@ tf.random.set_seed(SEED)
 # -----------------------
 # 1) Load data
 # -----------------------
-train_df = pd.read_csv("train.csv")   # columns: label, pixel0..pixel783
-test_df  = pd.read_csv("test.csv")    # columns: pixel0..pixel783
+# Get parent directory where train.csv and test.csv are located
+script_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(script_dir)
+train_csv_path = os.path.join(parent_dir, "train.csv")
+test_csv_path = os.path.join(parent_dir, "test.csv")
+
+train_df = pd.read_csv(train_csv_path)   # columns: label, pixel0..pixel783
+test_df  = pd.read_csv(test_csv_path)    # columns: pixel0..pixel783
 
 y_raw = train_df["label"].values
 X_raw = train_df.drop(columns=["label"]).values
 X_test_raw = test_df.values
 
 # -----------------------
-# 2) Preprocess
+# 2) Preprocess - RESHAPE FOR CNN (28, 28, 1)
 # -----------------------
 X = (X_raw.astype("float32")) / 255.0
 X_test = (X_test_raw.astype("float32")) / 255.0
+
+# Reshape to (samples, 28, 28, 1) for CNN input
+X = X.reshape(-1, 28, 28, 1)
+X_test = X_test.reshape(-1, 28, 28, 1)
+
 y = to_categorical(y_raw, num_classes=10)
 
 # Train/validation split (10% holdout)
@@ -52,7 +63,7 @@ X_train, X_val, y_train, y_val = train_test_split(
 )
 
 # -----------------------
-# 3) Visualize sample digits (optional)
+# 3) Visualize sample digits
 # -----------------------
 def show_digits(matrix, n=16, title=None, save_path=None):
     n = min(n, matrix.shape[0])
@@ -60,7 +71,11 @@ def show_digits(matrix, n=16, title=None, save_path=None):
     plt.figure(figsize=(5,5))
     for i in range(n):
         plt.subplot(side, side, i+1)
-        plt.imshow(matrix[i].reshape(28,28), cmap=plt.cm.binary)
+        # Handle both 2D (28,28) and 4D (samples, 28, 28, 1) shapes
+        if len(matrix[i].shape) == 3:
+            plt.imshow(matrix[i].reshape(28,28), cmap=plt.cm.binary)
+        else:
+            plt.imshow(matrix[i], cmap=plt.cm.binary)
         plt.axis("off")
     if title:
         plt.suptitle(title)
@@ -77,18 +92,32 @@ def show_digits(matrix, n=16, title=None, save_path=None):
         plt.close()
 
 # -----------------------
-# 4) Build MLP model
+# 4) Build CNN model
 # -----------------------
 model = Sequential([
-    Dense(512, activation="relu", input_shape=(784,)),
+    # First Convolutional Block
+    Conv2D(32, kernel_size=(3, 3), activation="relu", input_shape=(28, 28, 1)),
+    MaxPooling2D(pool_size=(2, 2)),
+    
+    # Second Convolutional Block
+    Conv2D(64, kernel_size=(3, 3), activation="relu"),
+    MaxPooling2D(pool_size=(2, 2)),
+    
+    # Flatten for Dense layers
+    Flatten(),
+    
+    # Fully Connected Layers
+    Dense(128, activation="relu"),
+    Dropout(0.3),
+    Dense(64, activation="relu"),
     Dropout(0.2),
-    Dense(256, activation="relu"),
-    Dropout(0.2),
+    
+    # Output layer
     Dense(10, activation="softmax")  # use softmax for multi-class
 ])
 
 model.compile(
-    optimizer="sgd",
+    optimizer="adam",  # Changed from SGD to Adam (better for CNNs)
     loss="categorical_crossentropy",
     metrics=["accuracy"]
 )
@@ -141,7 +170,11 @@ def show_test_preds(Xt, preds, n=100, save_path=None):
     plt.figure(figsize=(5,5))
     for i in range(n):
         plt.subplot(side, side, i+1)
-        plt.imshow(Xt[i].reshape(28,28), cmap=plt.cm.binary)
+        # Handle both 2D (28,28) and 4D (samples, 28, 28, 1) shapes
+        if len(Xt[i].shape) == 3:
+            plt.imshow(Xt[i].reshape(28,28), cmap=plt.cm.binary)
+        else:
+            plt.imshow(Xt[i], cmap=plt.cm.binary)
         plt.title(int(preds[i]))
         plt.axis("off")
     plt.tight_layout()
@@ -163,7 +196,11 @@ show_test_preds(X_test, pred_labels, n=100)
 # -----------------------
 def load_and_prepare_my_digits(folder_path="my_digits"):
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    folder_path = folder_path if os.path.isabs(folder_path) else os.path.join(script_dir, folder_path)
+    # Look for my_digits in parent directory if not found in current
+    if not os.path.isdir(folder_path):
+        parent_dir = os.path.dirname(script_dir)
+        folder_path = os.path.join(parent_dir, "my_digits")
+    
     if not os.path.isdir(folder_path):
         print(f"Folder not found: {folder_path}")
         return None, None
@@ -199,7 +236,8 @@ def load_and_prepare_my_digits(folder_path="my_digits"):
             if arr.mean() > 127:
                 arr = np.array(ImageOps.invert(Image.fromarray(arr)), dtype=np.uint8)
             arr = arr.astype("float32") / 255.0
-            processed.append(arr.flatten())
+            # Keep as 2D (28, 28) for CNN - will reshape later
+            processed.append(arr)
             descs.append(os.path.basename(p))
         except Exception as ex:
             print(f"Failed to process '{p}': {ex}")
@@ -208,12 +246,17 @@ def load_and_prepare_my_digits(folder_path="my_digits"):
         print("No valid images processed. Skipping custom digits.")
         return None, None
 
-    return np.stack(processed, axis=0), descs
+    # Stack and reshape for CNN: (n_samples, 28, 28, 1)
+    processed_array = np.stack(processed, axis=0)
+    processed_array = processed_array.reshape(-1, 28, 28, 1)
+    return processed_array, descs
 
-def export_test1_csv(pixels_2d, csv_path="test1.csv"):
-    if pixels_2d is None:
+def export_test1_csv(pixels_4d, csv_path="test1.csv"):
+    if pixels_4d is None:
         print(f"No pixels to export. Skipping {csv_path}")
         return
+    # Reshape from (n, 28, 28, 1) to (n, 784) for CSV export
+    pixels_2d = pixels_4d.reshape(-1, 28*28)
     pixels_255 = (pixels_2d * 255.0).round().astype(np.uint8)
     cols = [f"pixel{i}" for i in range(28*28)]
     df = pd.DataFrame(pixels_255, columns=cols)
@@ -246,6 +289,8 @@ if my_pixels is not None:
         print(f"Reloading CSV from: {test1_path}")
         test1_df = pd.read_csv(test1_path)
         test1_pixels = test1_df.values.astype("float32") / 255.0
+        # Reshape for CNN: (n_samples, 28, 28, 1)
+        test1_pixels = test1_pixels.reshape(-1, 28, 28, 1)
         csv_probs = model.predict(test1_pixels, verbose=0)
         csv_preds = np.argmax(csv_probs, axis=1)
         csv_results_df = pd.DataFrame({
@@ -265,3 +310,4 @@ if my_pixels is not None:
         print(f"Failed to reload and predict from test1.csv: {ex}")
 else:
     print("No handwritten digits processed. test1.csv not created.")
+
